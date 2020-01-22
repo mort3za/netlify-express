@@ -26,11 +26,11 @@ exports.emailSender = function({
         ) {
           resolve();
         } else {
-          reject();
+          reject(body);
         }
       });
     } catch (error) {
-      reject();
+      reject({ message: "mailer service has a problem" });
     }
   });
 };

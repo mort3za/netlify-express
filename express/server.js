@@ -23,8 +23,8 @@ router.post("/mail/send", (req, res) => {
       .then(() => {
         res.status(200);
       })
-      .catch(() => {
-        res.status(400);
+      .catch(error => {
+        res.status(400).json(error);
       })
       .finally(() => {
         res.end();

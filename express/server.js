@@ -16,20 +16,20 @@ router.get("/", (req, res) => {
   res.end();
 });
 
-router.post("/", (req, res) => res.json({ postBody: req.body }));
 router.post("/mail/send", (req, res) => {
-  let result
-  if (typeof req.body == 'object') {
-    result = emailSender(req.body);
-  }
-  
-  if (
-    typeof result == "object" &&
-    (result.message || "").toLowerCase().includes("Queued")
-  ) {
-    res.status(200).end();
-  } else {
-    res.status(400).end();
+  if (typeof req.body == "object") {
+    emailSender(req.body)
+      .then(() => {
+        console.log("then...");
+        res.status(200);
+      })
+      .catch(() => {
+        console.log("catch...");
+        res.status(400);
+      })
+      .finally(() => {
+        res.end();
+      });
   }
 });
 

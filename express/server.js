@@ -1,3 +1,5 @@
+// see console logs in netlify: https://app.netlify.com/sites/express-502501/functions/server
+
 "use strict";
 const express = require("express");
 const path = require("path");
@@ -11,8 +13,7 @@ const { emailSender } = require("./utils/mailgun");
 
 const router = express.Router();
 router.get("/", (req, res) => {
-  res.writeHead(200, { "Content-Type": "text/html" });
-  res.write("<h1>Hello from Express.js!</h1>");
+  res.json({ app: "running" });
   res.end();
 });
 
@@ -20,11 +21,9 @@ router.post("/mail/send", (req, res) => {
   if (typeof req.body == "object") {
     emailSender(req.body)
       .then(() => {
-        console.log("then...");
         res.status(200);
       })
       .catch(() => {
-        console.log("catch...");
         res.status(400);
       })
       .finally(() => {

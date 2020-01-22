@@ -17,16 +17,24 @@ exports.emailSender = function({
   };
 
   return new Promise((resolve, reject) => {
-    mailgun.messages().send(data, function(error, body) {
-      console.log(`time:${new Date().getTime()}, subject:${email_subject}, message:${body.message}`);
-      if (
-        typeof body == "object" &&
-        (body.message || "").toLowerCase().includes("queued")
-      ) {
-        resolve();
-      } else {
-        reject();
-      }
-    });
+    try {
+      mailgun.messages().send(data, function(error, body) {
+        logger(body);
+        if (
+          typeof body == "object" &&
+          (body.message || "").toLowerCase().includes("queued")
+        ) {
+          resolve();
+        } else {
+          reject();
+        }
+      });
+    } catch (error) {
+      reject();
+    }
   });
 };
+
+function logger(body) {
+  console.log(`time:${new Date().getTime()}, message:${body.message}`);
+}

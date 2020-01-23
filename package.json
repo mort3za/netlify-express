@@ -22,7 +22,6 @@
   },
   "homepage": "https://github.com/neverendingqs/netlify-express#readme",
   "dependencies": {
-    "@sendgrid/mail": "6.5.0",
     "axios": "^0.19.2",
     "mailgun-js": "0.22.0"
   },

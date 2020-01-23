@@ -1,49 +1,36 @@
-// const sgMail = require("@sendgrid/mail");
 const api_key = process.env.SENDGRID_API_KEY;
 const email_from = process.env.EMAIL_FROM;
+const email_from_name = process.env.EMAIL_FROM_NAME;
 axios = require("axios");
 
 exports.emailSender = async function({
   email_to,
   email_subject,
-  email_text,
-  email_html,
   template_id,
-  template_data
+  dynamic_template_data
 }) {
-  const msg = {
-    to: email_to,
-    from: email_from,
-    // subject: email_subject,
-    // text: email_text,
-    // html: email_html,
-    templateId: template_id,
-    dynamic_template_data: template_data
-  };
-
   const data = {
     from: {
-      email: "my4@example.com",
-      name: "Morteza"
+      email: email_from,
+      name: email_from_name
     },
     personalizations: [
       {
+        subject: email_subject,
         to: [
           {
-            email: "m.ziaeemehr@gmail.com"
+            email: email_to
           }
         ],
-        dynamic_template_data: {
-          noun: "Mort"
-        }
+        dynamic_template_data
       }
     ],
-    template_id: "d-9a3ef6bc785244159ea9ab2f8bf2c8a6"
+    template_id
   };
 
   try {
     const result = await axios({
-      method: 'post',
+      method: "post",
       url: "https://api.sendgrid.com/v3/mail/send",
       data,
       headers: {
@@ -51,19 +38,12 @@ exports.emailSender = async function({
         authorization: `Bearer ${api_key}`
       }
     });
-    return { message: "OK" };
+    return { error: false, status: 200, data: {} };
   } catch (error) {
-    const errors =
-      error &&
-      error.response &&
-      error.response.body &&
-      error.response.body.errors;
-    console.log("error =======>", errors || (error && error.response) || error);
     return {
       error: true,
-      message:
-        (errors && errors.length > 0 && errors[0].message) ||
-        "mailer service has a problem"
+      status: error.response.status,
+      data: error.response.data
     };
   }
 };

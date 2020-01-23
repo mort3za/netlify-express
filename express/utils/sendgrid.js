@@ -31,8 +31,11 @@ exports.emailSender = async function({
     return { message: "OK" };
   } catch (error) {
     const errors =
-      error.response && error.response.body && error.response.body.errors;
-    console.log("error =======>", errors);
+      error &&
+      error.response &&
+      error.response.body &&
+      error.response.body.errors;
+    console.log("error =======>", errors || error);
     return {
       error: true,
       message:

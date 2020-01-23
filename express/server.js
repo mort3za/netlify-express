@@ -23,15 +23,6 @@ router.post("/mail/send", async (req, res) => {
     const result = await emailSender(req.body);
     console.log("final result", result);
     res.json(result).end();
-    // .then(() => {
-    //   res.status(200);
-    // })
-    // .catch(error => {
-    //   res.status(400).json(error);
-    // })
-    // .finally(() => {
-    //   res.end();
-    // });
   }
 });
 

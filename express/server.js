@@ -18,10 +18,11 @@ router.get("/", (req, res) => {
   res.end();
 });
 
-router.post("/mail/send", (req, res) => {
+router.post("/mail/send", async (req, res) => {
   if (typeof req.body == "object") {
-    emailSender(req.body);
-    res.end();
+    const result = await emailSender(req.body);
+    console.log("final result", result);
+    res.json(result).end();
     // .then(() => {
     //   res.status(200);
     // })

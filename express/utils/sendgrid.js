@@ -3,8 +3,7 @@ const sgMail = require("@sendgrid/mail");
 const api_key = process.env.SENDGRID_API_KEY;
 const email_from = process.env.EMAIL_FROM;
 
-console.log('key', api_key.substring(0, 5));
-
+console.log("key", api_key.substring(0, 5));
 
 exports.emailSender = async function({
   email_to,
@@ -45,7 +44,8 @@ exports.emailSender = async function({
     };
     sgMail.setApiKey(api_key);
     const result = await sgMail.send(msg);
-    console.log('success ========>', result.response);
+    console.log("success ========>", result.response);
+    return { message: "OK" };
   } catch (error) {
     console.log(
       "error =======>",

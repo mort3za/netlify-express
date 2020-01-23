@@ -16,8 +16,8 @@ exports.emailSender = async function({
     subject: email_subject,
     text: email_text,
     html: email_html,
-    // templateId: template_id,
-    // dynamic_template_data: template_data
+    templateId: template_id,
+    dynamic_template_data: template_data
   };
 
   try {

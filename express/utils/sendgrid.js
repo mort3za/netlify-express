@@ -29,10 +29,14 @@ exports.emailSender = function({
       sgMail
         .send(msg)
         .then(result => {
+          console.log("then in sgMail.send", result);
+
           resolve();
           return result;
         })
-        .catch(reject)
+        .catch(error => {
+          console.log("catch in sgMail.send", error);
+        })
         .finally(result => {
           logger(result);
         });

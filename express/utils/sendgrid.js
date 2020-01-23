@@ -3,7 +3,10 @@ const sgMail = require("@sendgrid/mail");
 const api_key = process.env.SENDGRID_API_KEY;
 const email_from = process.env.EMAIL_FROM;
 
-exports.emailSender = function({
+console.log('key', api_key.substring(0, 5));
+
+
+exports.emailSender = async function({
   email_to,
   email_subject,
   email_text,
@@ -23,29 +26,31 @@ exports.emailSender = function({
   //   // }
   // };
 
-  return new Promise((resolve, reject) => {
-    try {
-      // sgMail
-      //   .send(msg)
-      //   .then(result => {
-      //     resolve();
-      //     return result;
-      //   })
-      //   .catch(error => {
-      //     console.log("catch in sgMail.send", error);
-      //   });
-      const msg = {
-        to: "m.ziaeemehr@gmail.com",
-        from: "my3@example.com",
-        subject: "Hello world 3",
-        text: "Hello plain world!",
-        html: "<p>Hello <b>HTML</b> world!</p>"
-      };
-      sgMail.setApiKey(api_key);
-      const result = sgMail.send(msg);
-      console.log("result---------------->", result);
-    } catch (error) {
-      reject({ message: "mailer service has a problem" });
-    }
-  });
+  try {
+    // sgMail
+    //   .send(msg)
+    //   .then(result => {
+    //     resolve();
+    //     return result;
+    //   })
+    //   .catch(error => {
+    //     console.log("catch in sgMail.send", error);
+    //   });
+    const msg = {
+      to: "m.ziaeemehr@gmail.com",
+      from: "my3@example.com",
+      subject: "Hello world 3",
+      text: "Hello plain world!",
+      html: "<p>Hello <b>HTML</b> world!</p>"
+    };
+    sgMail.setApiKey(api_key);
+    const result = await sgMail.send(msg);
+    console.log('success ========>', result.response);
+  } catch (error) {
+    console.log(
+      "error =======>",
+      error.response && error.response.body && error.response.body.errors
+    );
+    return { message: "mailer service has a problem" };
+  }
 };

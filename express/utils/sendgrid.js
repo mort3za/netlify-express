@@ -3,7 +3,7 @@ const sgMail = require("@sendgrid/mail");
 const api_key = process.env.SENDGRID_API_KEY;
 const email_from = process.env.EMAIL_FROM;
 
-console.log("key", api_key.substring(0, 5));
+console.log("key", api_key.substring(0, 5), "--", api_key.substring(api_key.length - 3));
 
 exports.emailSender = async function({
   email_to,

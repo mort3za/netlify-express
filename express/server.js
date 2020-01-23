@@ -6,7 +6,8 @@ const path = require("path");
 const serverless = require("serverless-http");
 const app = express();
 const bodyParser = require("body-parser");
-const { emailSender } = require("./utils/mailgun");
+const { emailSender } = require("./utils/sendgrid");
+// const { emailSender } = require("./utils/mailgun");
 
 // base url for all express routes is: /.netlify/functions/server
 // e.g. /.netlify/functions/server/mail/send

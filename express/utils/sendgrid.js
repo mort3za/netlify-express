@@ -13,11 +13,11 @@ exports.emailSender = async function({
   const msg = {
     to: email_to,
     from: email_from,
-    // subject: email_subject,
-    // text: email_text,
-    // html: email_html,
-    templateId: template_id,
-    dynamic_template_data: template_data
+    subject: email_subject,
+    text: email_text,
+    html: email_html,
+    // templateId: template_id,
+    // dynamic_template_data: template_data
   };
 
   try {
@@ -27,7 +27,7 @@ exports.emailSender = async function({
   } catch (error) {
     const errors =
       error && error.response && error.response.body && error.response.body.errors;
-    console.log("error =======>", errors || error);
+    console.log("error =======>", errors || (error && error.response) || error);
     return {
       error: true,
       message:

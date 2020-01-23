@@ -26,26 +26,25 @@ exports.emailSender = function({
 
   return new Promise((resolve, reject) => {
     try {
-      sgMail
-        .send(msg)
-        .then(result => {
-          console.log("then in sgMail.send", result);
-
-          resolve();
-          return result;
-        })
-        .catch(error => {
-          console.log("catch in sgMail.send", error);
-        })
-        .finally(result => {
-          logger(result);
-        });
+      // sgMail
+      //   .send(msg)
+      //   .then(result => {
+      //     resolve();
+      //     return result;
+      //   })
+      //   .catch(error => {
+      //     console.log("catch in sgMail.send", error);
+      //   });
+      const msg = {
+        to: "m.ziaeemehr@gmail.com",
+        from: "my3@example.com",
+        subject: "Hello world 3",
+        text: "Hello plain world!",
+        html: "<p>Hello <b>HTML</b> world!</p>"
+      };
+      sgMail.send(msg);
     } catch (error) {
       reject({ message: "mailer service has a problem" });
     }
   });
 };
-
-function logger(body) {
-  console.log(`time:${new Date().getTime()}, message:${JSON.stringify(body)}`);
-}

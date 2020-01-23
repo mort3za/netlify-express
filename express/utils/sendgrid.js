@@ -13,9 +13,9 @@ exports.emailSender = async function({
   const msg = {
     to: email_to,
     from: email_from,
-    subject: email_subject,
-    text: email_text,
-    html: email_html,
+    // subject: email_subject,
+    // text: email_text,
+    // html: email_html,
     templateId: template_id,
     dynamic_template_data: template_data
   };

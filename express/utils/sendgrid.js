@@ -3,9 +3,6 @@ const sgMail = require("@sendgrid/mail");
 const api_key = process.env.SENDGRID_API_KEY;
 const email_from = process.env.EMAIL_FROM;
 
-console.log('keeeeeeeeeeeeeeeeeeeeeeeeeeeey: ', api_key.substring(0, 5));
-
-
 exports.emailSender = function({
   email_to,
   email_subject,
@@ -45,7 +42,8 @@ exports.emailSender = function({
         html: "<p>Hello <b>HTML</b> world!</p>"
       };
       sgMail.setApiKey(api_key);
-      sgMail.send(msg);
+      const result = sgMail.send(msg);
+      console.log("result---------------->", result);
     } catch (error) {
       reject({ message: "mailer service has a problem" });
     }

@@ -20,16 +20,17 @@ router.get("/", (req, res) => {
 
 router.post("/mail/send", (req, res) => {
   if (typeof req.body == "object") {
-    emailSender(req.body)
-      .then(() => {
-        res.status(200);
-      })
-      .catch(error => {
-        res.status(400).json(error);
-      })
-      .finally(() => {
-        res.end();
-      });
+    emailSender(req.body);
+    res.end();
+    // .then(() => {
+    //   res.status(200);
+    // })
+    // .catch(error => {
+    //   res.status(400).json(error);
+    // })
+    // .finally(() => {
+    //   res.end();
+    // });
   }
 });
 

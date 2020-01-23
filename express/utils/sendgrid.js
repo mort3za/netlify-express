@@ -1,12 +1,6 @@
 const sgMail = require("@sendgrid/mail");
-const api_key = process.env.SENDGRID_API_KEY;
-const email_from = process.env.EMAIL_FROM;
-
-console.log(
-  `apikey: ${api_key.substring(0, 4)}...${api_key.substring(
-    api_key.length - 1
-  )}`
-);
+const api_key = process.env.SENDGRID_API_KEY.trim();
+const email_from = process.env.EMAIL_FROM.trim();
 
 exports.emailSender = async function({
   email_to,
@@ -16,14 +10,19 @@ exports.emailSender = async function({
   template_id,
   template_data
 }) {
+  const msgTemplateFields = {
+    templateId: template_id,
+    dynamic_template_data: template_data
+  };
+  const msgSimpleFields = {
+    subject: email_subject,
+    text: email_text,
+    html: email_html
+  };
   const msg = {
     to: email_to,
     from: email_from,
-    subject: email_subject,
-    text: email_text,
-    html: email_html,
-    templateId: template_id,
-    dynamic_template_data: template_data
+    ...(template_id ? msgTemplateFields : msgSimpleFields)
   };
 
   try {

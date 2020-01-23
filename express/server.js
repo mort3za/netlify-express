@@ -21,7 +21,7 @@ router.get("/", (req, res) => {
 router.post("/mail/send", async (req, res) => {
   if (typeof req.body == "object") {
     const result = await emailSender(req.body);
-    console.log("final result", result);
+    console.log("result", result);
     res.json(result).end();
   }
 });

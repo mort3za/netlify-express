@@ -5,6 +5,7 @@ axios = require("axios");
 
 exports.emailSender = async function({
   email_to,
+  email_bcc,
   email_subject,
   template_id,
   dynamic_template_data
@@ -22,6 +23,13 @@ exports.emailSender = async function({
             email: email_to
           }
         ],
+        bcc: email_bcc
+          ? [
+              {
+                email: email_bcc
+              }
+            ]
+          : [],
         dynamic_template_data
       }
     ],

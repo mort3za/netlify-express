@@ -23,13 +23,13 @@ exports.emailSender = async function({
             email: email_to
           }
         ],
-        bcc: email_bcc
-          ? [
-              {
-                email: email_bcc
-              }
-            ]
-          : [],
+        ...(email_bcc && {
+          bcc: [
+            {
+              email: email_bcc
+            }
+          ]
+        }),
         dynamic_template_data
       }
     ],

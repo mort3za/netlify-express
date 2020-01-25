@@ -15,20 +15,13 @@ exports.emailSender = async function({
       email: email_from,
       name: email_from_name
     },
+    // doc: https://sendgrid.com/docs/for-developers/sending-email/personalizations/
     personalizations: [
       {
         subject: email_subject,
-        to: [
-          {
-            email: email_to
-          }
-        ],
+        to: email_to,
         ...(email_bcc && {
-          bcc: [
-            {
-              email: email_bcc
-            }
-          ]
+          bcc: email_bcc
         }),
         dynamic_template_data
       }

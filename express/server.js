@@ -2,6 +2,8 @@
 
 "use strict";
 const express = require("express");
+
+var cors = require('cors')
 const path = require("path");
 const serverless = require("serverless-http");
 const app = express();
@@ -31,6 +33,8 @@ router.post("/mail/send", async (req, res) => {
   }
 });
 
+
+app.use(cors())
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use("/.netlify/functions/server", router); // path must route to lambda

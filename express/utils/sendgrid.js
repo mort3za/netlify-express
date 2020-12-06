@@ -1,6 +1,15 @@
 const api_key = process.env.SENDGRID_API_KEY;
 const email_from = process.env.EMAIL_FROM;
 const email_from_name = process.env.EMAIL_FROM_NAME;
+const headers = {
+  'Access-Control-Allow-Origin': '',
+  'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept',
+  'Content-Type': 'application/json',
+  'Access-Control-Allow-Methods': '',
+  'Access-Control-Max-Age': '2592000',
+  'Access-Control-Allow-Credentials': 'true',
+};
+
 axios = require("axios");
 
 exports.emailSender = async function({

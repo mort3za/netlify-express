@@ -9,12 +9,13 @@ const headers = {
   'Access-Control-Max-Age': '2592000',
   'Access-Control-Allow-Credentials': 'true',
 };
-
 axios = require("axios");
 
 exports.emailSender = async function({
   email_to,
+
   email_bcc,
+
   email_subject,
   template_id,
   dynamic_template_data
@@ -24,6 +25,7 @@ exports.emailSender = async function({
       email: email_from,
       name: email_from_name
     },
+
     // doc: https://sendgrid.com/docs/for-developers/sending-email/personalizations/
     personalizations: [
       {
@@ -32,6 +34,15 @@ exports.emailSender = async function({
         ...(email_bcc && {
           bcc: email_bcc
         }),
+    personalizations: [
+      {
+        subject: email_subject,
+        to: [
+          {
+            email: email_to
+          }
+        ],
+
         dynamic_template_data
       }
     ],
